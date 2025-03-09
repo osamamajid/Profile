@@ -1,101 +1,356 @@
-import Image from "next/image";
+'use client';
+
+import Image from 'next/image'
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  technologies: string[];
+  imageUrl: string;
+  githubUrl: string;
+  liveUrl?: string;
+}
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 }
+};
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const projects: Project[] = [
+  {
+    id: 1,
+    title: "Mobile App - Task Manager",
+    description: "A React Native task management app with real-time synchronization and cross-platform support.",
+    technologies: ["React Native", "Firebase", "TypeScript"],
+    imageUrl: "https://via.placeholder.com/600x400/1a365d/ffffff?text=Task+Manager+App",
+    githubUrl: "https://github.com/osama-majed",
+    liveUrl: "https://play.google.com/store/apps/..."
+  },
+  {
+    id: 2,
+    title: "E-commerce Platform",
+    description: "Full-stack e-commerce solution with real-time inventory and payment integration.",
+    technologies: ["Next.js", "Node.js", "MongoDB", "Stripe"],
+    imageUrl: "https://via.placeholder.com/600x400/1a365d/ffffff?text=E-commerce+Platform",
+    githubUrl: "https://github.com/osama-majed"
+  },
+  {
+    id: 3,
+    title: "AI Chat Application",
+    description: "Real-time chat application with AI-powered responses and multi-language support.",
+    technologies: ["React", "Socket.io", "OpenAI", "Express"],
+    imageUrl: "https://via.placeholder.com/600x400/1a365d/ffffff?text=AI+Chat+App",
+    githubUrl: "https://github.com/osama-majed"
+  }
+]
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [imageError, setImageError] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-20">
+        <motion.div 
+          className="flex flex-col items-center text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div 
+            className="relative w-48 h-48 mb-8 rounded-full overflow-hidden border-4 border-blue-500 shadow-lg"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/osama-profile.jpg"
+              alt="Osama Majed"
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              quality={100}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          </motion.div>
+          <motion.h1 
+            className="text-5xl font-bold mb-4"
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+          >
+            Osama Majed
+          </motion.h1>
+          <motion.h2 
+            className="text-2xl text-gray-400 mb-6"
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+            transition={{ delay: 0.2 }}
+          >
+            Mobile & Web Application Developer
+          </motion.h2>
+          <motion.p 
+            className="max-w-2xl text-gray-300 mb-8"
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+            transition={{ delay: 0.3 }}
+          >
+            Passionate about creating seamless user experiences through innovative mobile and web applications.
+            Specialized in React Native, Next.js, and modern web technologies.
+          </motion.p>
+          <motion.div 
+            className="flex space-x-6"
+            variants={staggerContainer}
+            initial="initial"
+            animate="animate"
+          >
+            {[
+              { 
+                href: "https://www.linkedin.com/in/osama-majid-0a06a4108", 
+                icon: <FaLinkedin />,
+                label: "LinkedIn"
+              },
+              { 
+                href: "https://github.com/osama-majed", 
+                icon: <FaGithub />,
+                label: "GitHub"
+              },
+              { 
+                href: "mailto:osamaalsodany321@gmail.com", 
+                icon: <FaEnvelope />,
+                label: "Email"
+              }
+            ].map((social, index) => (
+              <motion.a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-3xl text-blue-400 hover:text-blue-300 transition-colors"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                variants={fadeInUp}
+                title={social.label}
+              >
+                {social.icon}
+              </motion.a>
+            ))}
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Projects Section */}
+      <motion.section 
+        className="container mx-auto px-4 py-16"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.h2 
+          className="text-3xl font-bold mb-12 text-center"
+          variants={fadeInUp}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          Featured Projects
+        </motion.h2>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </motion.div>
+      </motion.section>
+
+      {/* Skills Section */}
+      <motion.section 
+        className="container mx-auto px-4 py-16"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.h2 
+          className="text-3xl font-bold mb-12 text-center"
+          variants={fadeInUp}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          Technical Skills
+        </motion.h2>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          <SkillCard 
+            title="Mobile Development" 
+            skills={["React Native", "iOS", "Android", "Flutter"]} 
+          />
+          <SkillCard 
+            title="Frontend" 
+            skills={["React.js", "Next.js", "TypeScript", "Tailwind CSS"]} 
+          />
+          <SkillCard 
+            title="Backend" 
+            skills={["Node.js", "Express", "MongoDB", "Firebase"]} 
+          />
+          <SkillCard 
+            title="Tools & DevOps" 
+            skills={["Git", "Docker", "AWS", "CI/CD"]} 
+          />
+        </motion.div>
+      </motion.section>
+
+      {/* Contact Section */}
+      <motion.section 
+        className="container mx-auto px-4 py-16"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.div 
+          className="max-w-4xl mx-auto text-center"
+          variants={fadeInUp}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl font-bold mb-8">Let's Work Together</h2>
+          <p className="text-gray-400 mb-8">
+            I'm always interested in hearing about new projects and opportunities.
+            Whether you have a question or just want to say hi, feel free to reach out!
+          </p>
+          <motion.a
+            href="mailto:osamaalsodany321@gmail.com"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 
+                     text-white font-bold py-3 px-8 rounded-full transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <FaEnvelope />
+            Get in Touch
+          </motion.a>
+        </motion.div>
+      </motion.section>
+    </main>
+  )
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  const [imageError, setImageError] = useState(false);
+
+  return (
+    <motion.div 
+      className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden 
+                border border-gray-700 hover:border-blue-500"
+      variants={fadeInUp}
+      whileHover={{ scale: 1.03 }}
+      transition={{ type: "spring", stiffness: 300 }}
+    >
+      <div className="relative h-48">
+        {!imageError ? (
+          <Image
+            src={project.imageUrl}
+            alt={project.title}
+            fill
+            className="object-cover"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+            <span className="text-gray-600">No Image Available</span>
+          </div>
+        )}
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+        <p className="text-gray-400 mb-4">{project.description}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.technologies.map((tech, index) => (
+            <motion.span 
+              key={index}
+              className="bg-blue-600/20 text-blue-400 px-3 py-1 rounded-full text-sm"
+              whileHover={{ scale: 1.1 }}
+            >
+              {tech}
+            </motion.span>
+          ))}
+        </div>
+        <div className="flex space-x-4">
+          <motion.a
+            href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 flex items-center gap-2"
+            whileHover={{ scale: 1.1 }}
           >
-            Read our docs
-          </a>
+            <FaGithub /> Code
+          </motion.a>
+          {project.liveUrl && (
+            <motion.a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300"
+              whileHover={{ scale: 1.1 }}
+            >
+              Live Demo →
+            </motion.a>
+          )}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </div>
+    </motion.div>
+  )
+}
+
+function SkillCard({ title, skills }: { title: string; skills: string[] }) {
+  return (
+    <motion.div 
+      className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-blue-500"
+      variants={fadeInUp}
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300 }}
+    >
+      <h3 className="text-xl font-bold mb-4">{title}</h3>
+      <ul className="space-y-2">
+        {skills.map((skill, index) => (
+          <motion.li 
+            key={index} 
+            className="text-gray-400"
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.1 }}
+          >
+            {skill}
+          </motion.li>
+        ))}
+      </ul>
+    </motion.div>
+  )
 }
